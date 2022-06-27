@@ -1,4 +1,4 @@
 [submodule "cloudplaybook"]
-        path = cloudplaybook
-        url = https://github.com/jinjin123/cloudplaybook.git 
+	path = cloudplaybook
+	url = https://github.com/jinjin123/cloudplaybook.git
 
