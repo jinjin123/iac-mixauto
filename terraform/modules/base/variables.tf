@@ -1,7 +1,7 @@
 // multi cloud env variable 
 // must define header
 variable "aws_keyname" {
-  type = string
+  type    = string
   default = "test-mykey.pem"
 }
 
@@ -14,15 +14,58 @@ variable "aws_amis" {
   }
 }
 
-variable "aws_region" [
-  "ap-east-1"
-  "ap-east-1"
-  "ap-east-1"
-  "ap-east-1"
-  "ap-east-1"
-  "ap-east-1"
-  "ap-east-1"
-]
+variable "aws_regions" {
+  type = list(string)
+  default = [
+    "eu-north-1",
+    "ap-south-1",
+    "eu-west-3",
+    "eu-west-2",
+    "eu-west-1",
+    "ap-northeast-3",
+    "ap-northeast-2",
+    "ap-northeast-1",
+    "sa-east-1",
+    "ca-central-1",
+    "ap-east-1",
+    "ap-southeast-1",
+    "ap-southeast-2",
+    "eu-central-1",
+    "us-east-1",
+    "us-east-2",
+    "us-west-1",
+    "us-west-2"
+  ]
+}
+//not area
+variable "awsvpcs" {
+    type = map(object({
+      cidr_block = string
+    }))
+    default = {
+      "a"="172.31.0.0/16",
+      "b"="10.0.0.0/16"
+    }
+}
+// has area
+variable "awssubnet_public" {
+    type = map(object({
+      cidr_block = string
+    }))
+    default = {
+      "ap-east-1a"="172.31.32.0/20",
+      "ap-east-1b"="172.31.31.0/20",
+    }
+}
+// has area
+variable "awssubnet_private" {
+    type = map(object({
+      cidr_block = string
+    }))
+    default = {
+      "ap-east-1c"="172.31.33.0/20",
+    }
+}
 
 variable "aws_interfaces" {
   description = <<-EOF
@@ -60,4 +103,10 @@ variable "aws_interfaces" {
   ]
   ```
   EOF
+}
+
+variable "tags" {
+  description = "A map of tags to be associated with the resources created."
+  default     = {}
+  /* type        = map(any) */
 }
