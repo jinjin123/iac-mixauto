@@ -39,13 +39,15 @@ variable "aws_regions" {
 }
 //not area
 variable "awsvpcs" {
-    type = map(object({
+    /* type = map(object({
       cidr_block = string
     }))
     default = {
       "a"="172.31.0.0/16",
       "b"="10.0.0.0/16"
-    }
+    } */
+    default = "172.31.0.0/16"
+
 }
 // has area
 variable "awssubnet_public" {
