@@ -1,3 +1,7 @@
+variable "aws_keyname" {
+  type = string
+  default = "{}"
+}
 resource "tls_private_key" "key" {
   algorithm   = "RSA"
   ecdsa_curve = "P224"

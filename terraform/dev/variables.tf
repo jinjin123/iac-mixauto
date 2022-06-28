@@ -1,18 +1,61 @@
 // multi cloud env variable 
 // must define header
 variable "aws_keyname" {
-  type    = string
-  default = "test-mykey.pem"
+  type = string
+  default = "test-key.pem"
+}
+//not area
+variable "awsvpcs" {
+    /* type = map(object({
+      cidr_block = string
+    }))
+    default = {
+      "a"="172.31.0.0/16",
+      "b"="10.0.0.0/16"
+    } */
+    type = string
+    default = "10.0.0.0/16"
+
+}
+// has area
+variable "awssubnet_public" {
+    /* type = map(object({
+      ap-east-1a=string,
+      ap-east-1b=string,
+    })) */
+    type=map(string)
+    default = {
+          ap-east-1a="10.0.1.0/24",
+          ap-east-1b="10.0.2.0/24",
+    }
+    /* default = {
+      ap-east-1a{ap-east-1a="10.0.1.0/20"},
+      ap-east-1b="10.0.2.0/20",
+    } */
+}
+// has area
+variable "awssubnet_private" {
+    /* type = map(object({
+      ap-east-1c=string,
+    })) */
+    type=map(string)
+    default = {
+        ap-east-1c="10.0.3.0/24",
+    }
 }
 
+variable "network_tag" {
+  default = "dev-net"
+}
 variable "aws_amis" {
-  type = map(string)
+  type = map
   default = {
     us-east-1 = "ami-13be557e"
     us-west-2 = "ami-06b94666"
     eu-west-1 = "ami-0d729a60"
   }
 }
+
 
 variable "aws_regions" {
   type = list(string)
@@ -37,39 +80,7 @@ variable "aws_regions" {
     "us-west-2"
   ]
 }
-//not area
-variable "awsvpcs" {
-    /* type = map(object({
-      cidr_block = string
-    }))
-    default = {
-      "a"="172.31.0.0/16",
-      "b"="10.0.0.0/16"
-    } */
-    default = "172.31.0.0/16"
-
-}
-// has area
-variable "awssubnet_public" {
-    type = map(object({
-      cidr_block = string
-    }))
-    default = {
-      "ap-east-1a"="172.31.32.0/20",
-      "ap-east-1b"="172.31.31.0/20",
-    }
-}
-// has area
-variable "awssubnet_private" {
-    type = map(object({
-      cidr_block = string
-    }))
-    default = {
-      "ap-east-1c"="172.31.33.0/20",
-    }
-}
-
-variable "aws_interfaces" {
+/* variable "aws_interfaces" {
   description = <<-EOF
   List of the network interface specifications.
   The first should be the Management network interface, which does not participate in data filtering.
@@ -105,7 +116,7 @@ variable "aws_interfaces" {
   ]
   ```
   EOF
-}
+} */
 
 variable "tags" {
   description = "A map of tags to be associated with the resources created."
