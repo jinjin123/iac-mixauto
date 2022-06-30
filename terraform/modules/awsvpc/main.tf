@@ -78,14 +78,6 @@ resource "aws_route_table" "public_rt" {
     Name = "privateRouteTable"
   }
 } */
-# route table association with public subnets
-//length  of map or list
-/* resource "aws_route_table_association" "private" {
-  count = length(values({for k,v in aws_subnet.private: k => v.id}))
-  subnet_id =  "${element(values({for k,v in aws_subnet.private: k => v.id}),count.index)}"
-  route_table_id = aws_route_table.private_rt.*.id
-}
- */
 
 # route table association with public subnets
 //length  of map or list
@@ -116,12 +108,10 @@ output "awsvpc_subnetid" {
 output "vpc_public_rt" {
   value = data.external.t.result
 }
-
-/* output "route_table" {
-  value = tolist([{for k,v in aws_route_table.private_rt: k=>v.id},{for k,v in aws_route_table.public_rt:k =>v.id}])
-  value =  [for k,v in aws_route_table.private_rt: v ]
-} */
-/* output "awsvpc_mainroute" {
-   value = module.describe-route-tables 
-  value = aws_vpc.name.main_route_table_id
-} */
+# route table association with private subnets
+//length  of map or list
+resource "aws_route_table_association" "private" {
+  count = length(values({for k,v in aws_subnet.private: k => v.id}))
+  subnet_id =  "${element(values({for k,v in aws_subnet.private: k => v.id}),count.index)}"
+  route_table_id =  data.external.t.result.table_private_rt
+}

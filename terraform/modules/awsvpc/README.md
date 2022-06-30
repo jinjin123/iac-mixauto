@@ -1,3 +1,5 @@
+# default one VPC 2 public  subnet 1 private subnet, even has complex requirement just extend base of this 
+
 # there has some problem after private subnet create, they dont take a tag on route table, u have to use other hack way to inject VAR  
 
 

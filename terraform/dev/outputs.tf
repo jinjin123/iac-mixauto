@@ -1,6 +1,6 @@
-output "awssubnet_id" {
+output "awssubnet_info" {
   value = module.awsvpc
 }
-output "vpc_ids" {
+output "dev_key" {
   value = module.key
 }

@@ -31,5 +31,6 @@ aws ec2 create-tags --resource $private_rt_id --tags Key="Name",Value="privateRo
 # jq -n --arg vpc "$VPC" '{"vpc":$vpc}' --arg table "$TABLE" '{"table":$table}'
 jq -n --arg vpc_id "$VPC"  \
       --arg table_publicrt_id "$TABLE"  \
-      '{"vpc":$vpc_id,"table":$table_publicrt_id}' 
+      --arg table_privatert_id "$private_rt_id"  \
+      '{"vpc":$vpc_id,"table_public_rt":$table_publicrt_id,"table_private_rt": $table_privatert_id}' 
 
