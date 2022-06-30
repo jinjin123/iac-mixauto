@@ -39,7 +39,7 @@ resource "aws_subnet" "private" {
   availability_zone = each.key
   vpc_id            = aws_vpc.name.id
   tags = {
-    Name = "public-subnet-${each.key}"
+    Name = "private-subnet-${each.key}"
   }
 }
 
@@ -63,18 +63,65 @@ resource "aws_route_table" "public_rt" {
     gateway_id = aws_internet_gateway.name.id
   }
   tags = {
-    Name = "${var.network_tag}-publicRouteTable"
+    Name = "publicRouteTable"
+  }
+}
+# Route table: attach Internet Gateway 
+# error error creating route: one of `carrier_gateway_id, core_network_arn, egress_only_gateway_id, gateway_id, instance_id, local_gateway_id, nat_gateway_id, network_interface_id, transit_gateway_id, vpc_endpoint_id, vpc_peering_connection_id` must be specified
+/* resource "aws_route_table" "private_rt" {
+  for_each = var.awssubnet_private
+  vpc_id = aws_vpc.name.id
+  route {
+    cidr_block = each.value
+  }
+  tags = {
+    Name = "privateRouteTable"
+  }
+} */
+# route table association with public subnets
+//length  of map or list
+/* resource "aws_route_table_association" "private" {
+  count = length(values({for k,v in aws_subnet.private: k => v.id}))
+  subnet_id =  "${element(values({for k,v in aws_subnet.private: k => v.id}),count.index)}"
+  route_table_id = aws_route_table.private_rt.*.id
+}
+ */
+
+# route table association with public subnets
+//length  of map or list
+resource "aws_route_table_association" "a" {
+  count          = length(values({ for k, v in aws_subnet.public : k => v.id }))
+  subnet_id      = element(values({ for k, v in aws_subnet.public : k => v.id }), count.index)
+  route_table_id = aws_route_table.public_rt.id
+}
+/* module "describe-route-tables" {
+  count = 1
+  source = "digitickets/cli/aws"
+  role_session_name = "dev"
+  aws_cli_commands = ["ec2", "describe-route-tables","--filters 'Name=vpc-id,Values=\"${aws_vpc.name.id}\"'"]
+  aws_cli_query = "RouteTables[].Associations[?RouteTableId!=`\"${aws_route_table.public_rt.id}\"`].RouteTableId"
+} */
+data "external" "t" {
+  program = ["sh", "${path.module}/tag.sh"]
+  query = {
+    "vpc_id"   = "${aws_vpc.name.id}",
+    "table_publicrt_id" = "${aws_route_table.public_rt.id}"
   }
 }
 
-# Route table association with public subnets
-//length  of map or list
-resource "aws_route_table_association" "a" {
-  count = length(values({for k,v in aws_subnet.public: k => v.id}))
-  subnet_id =  "${element(values({for k,v in aws_subnet.public: k => v.id}),count.index)}"
-  route_table_id = aws_route_table.public_rt.id
-}
 
 output "awsvpc_subnetid" {
-  value = values({for k,v in aws_subnet.public: k => v.id})
+  value = tolist([{ for k, v in aws_subnet.public : k => v.id }, { for k, v in aws_subnet.private : k => v.id }])
 }
+output "vpc_public_rt" {
+  value = data.external.t.result
+}
+
+/* output "route_table" {
+  value = tolist([{for k,v in aws_route_table.private_rt: k=>v.id},{for k,v in aws_route_table.public_rt:k =>v.id}])
+  value =  [for k,v in aws_route_table.private_rt: v ]
+} */
+/* output "awsvpc_mainroute" {
+   value = module.describe-route-tables 
+  value = aws_vpc.name.main_route_table_id
+} */

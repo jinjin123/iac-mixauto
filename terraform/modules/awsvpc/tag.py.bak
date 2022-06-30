@@ -1,0 +1,22 @@
+#！/usr/bin/python
+from subprocess import check_output
+import sys
+import json
+
+def run_cmd(cmd):
+    # obj = subprocess.Popen(["python"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    # out_error_list = obj.communicate('print("hello")')
+    out = check_output([cmd],shell=True)
+    print(out)
+
+# print(sys.argv)
+
+# filter_arg = ("Name=vpc-id,Values=%s" % sys.argv[1])
+# query_arg = ( "RouteTables[].Associations[?RouteTableId!=`%s`].RouteTableId" % sys.argv[2])
+# run_cmd("aws ec2 describe-route-tables --filters '%s' --query '%s' | jq -r .[][]"% (filter_arg,query_arg))
+
+def test():
+    # return json.dumps({"a":"b"})
+    return {"a":"b"}
+
+test()
