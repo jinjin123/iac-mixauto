@@ -1,4 +1,4 @@
-resource "aws_security_group" "Security" {
+resource "aws_security_group" "rule" {
   name        = "EC2_BASE_GROUP"
   description = "aws_security"
 
@@ -22,6 +22,6 @@ resource "aws_security_group" "Security" {
     Name = "EC2_BASE_GROUP"
   }
 }
-output "security"{
-    value = aws_security_group.Security.id
+output "aws_security"{
+    value = aws_security_group.rule.id
 }
