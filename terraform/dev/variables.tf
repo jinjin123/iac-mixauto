@@ -56,6 +56,10 @@ variable "aws_amis" {
   }
 }
 
+variable "awslbtype" {
+  default = "application"
+}
+
 
 variable "aws_regions" {
   type = list(string)

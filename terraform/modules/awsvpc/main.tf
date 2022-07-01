@@ -102,8 +102,11 @@ data "external" "t" {
 }
 
 
-output "awsvpc_subnetid" {
-  value = tolist([{ for k, v in aws_subnet.public : k => v.id }, { for k, v in aws_subnet.private : k => v.id }])
+output "awsvpc_subnet_public_id" {
+  value = { for k, v in aws_subnet.public : k => v.id }
+}
+output "awsvpc_subnet_private_id" {
+  value = { for k, v in aws_subnet.private : k => v.id }
 }
 output "vpc_public_rt" {
   value = data.external.t.result

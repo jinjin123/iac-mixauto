@@ -16,3 +16,10 @@ module "awsvpc" {
   awssubnet_private = var.awssubnet_private
   network_tag =  var.network_tag
 }
+
+/* module "awslb" {
+  source = "../modules/awslb"
+  lbtype = var.awslbtype
+  aws_subnet_ids_depends_on = module.awsvpc.awsvpc_subnet_public_id
+  network_tag =  var.network_tag
+} */
