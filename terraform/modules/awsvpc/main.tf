@@ -108,6 +108,11 @@ output "awsvpc_subnet_public_id" {
 output "awsvpc_subnet_private_id" {
   value = { for k, v in aws_subnet.private : k => v.id }
 }
+// merge function has bug, will miss key/value separator after use values
+  /* value = merge( { for k, v in aws_subnet.public : k => v.id },{ for k, v in aws_subnet.private : k => v.id }) */
+output "awsvpc_subnet_merge_id" {
+  value = concat(values({ for k, v in aws_subnet.public : k => v.id }),values({ for k, v in aws_subnet.private : k => v.id }))
+}
 output "vpc_public_rt" {
   value = data.external.t.result
 }

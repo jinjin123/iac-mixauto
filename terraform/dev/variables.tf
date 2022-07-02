@@ -60,6 +60,17 @@ variable "awslbtype" {
   default = "application"
 }
 
+variable "awsefs_create_token" {
+  default = "web_efs"
+}
+
+variable "awss3_bucket_name" {
+  default = "web_bucket"
+}
+
+variable "awss3_acl" {
+  default = "private"
+}
 
 variable "aws_regions" {
   type = list(string)
@@ -121,6 +132,7 @@ variable "aws_regions" {
   ```
   EOF
 } */
+
 
 variable "tags" {
   description = "A map of tags to be associated with the resources created."

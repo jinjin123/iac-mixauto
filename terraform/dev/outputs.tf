@@ -5,6 +5,6 @@ output "awssubnet_info" {
   value = module.awsvpc
 }
 
-output "awslb_info" {
+/* output "awslb_info" {
   value = module.awslb
-}
+} */
