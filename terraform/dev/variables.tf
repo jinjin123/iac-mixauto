@@ -1,60 +1,56 @@
 // multi cloud env variable 
 // must define header
 variable "aws_keyname" {
-  type = string
+  type    = string
   default = "test-key.pem"
 }
 //not area
 variable "awsvpcs" {
-    /* type = map(object({
+  /* type = map(object({
       cidr_block = string
     }))
     default = {
       "a"="172.31.0.0/16",
       "b"="10.0.0.0/16"
     } */
-    type = string
-    default = "10.0.0.0/16"
+  type    = string
+  default = "10.0.0.0/16"
 
 }
 // has area
 variable "awssubnet_public" {
-    /* type = map(object({
+  /* type = map(object({
       ap-east-1a=string,
       ap-east-1b=string,
     })) */
-    type=map(string)
-    default = {
-          ap-east-1a="10.0.1.0/24",
-          ap-east-1b="10.0.2.0/24",
-    }
-    /* default = {
+  type = map(string)
+  default = {
+    ap-east-1a = "10.0.1.0/24",
+    ap-east-1b = "10.0.2.0/24",
+  }
+  /* default = {
       ap-east-1a{ap-east-1a="10.0.1.0/20"},
       ap-east-1b="10.0.2.0/20",
     } */
 }
 // has area
 variable "awssubnet_private" {
-    /* type = map(object({
+  /* type = map(object({
       ap-east-1c=string,
     })) */
-    type=map(string)
-    default = {
-        ap-east-1c="10.0.3.0/24",
-    }
+  type = map(string)
+  default = {
+    ap-east-1c = "10.0.3.0/24",
+  }
 }
 
 variable "network_tag" {
   default = "dev-net"
 }
-variable "aws_amis" {
-  type = map
-  default = {
-    us-east-1 = "ami-13be557e"
-    us-west-2 = "ami-06b94666"
-    eu-west-1 = "ami-0d729a60"
-  }
+variable "ec2_tag" {
+  default = "app"
 }
+
 
 variable "awslbtype" {
   default = "application"
@@ -70,6 +66,19 @@ variable "awss3_bucket_name" {
 
 variable "awss3_acl" {
   default = "private"
+}
+variable "aws_amis" {
+  type = map(any)
+  default = {
+    us-east-1 = "ami-13be557e"
+    us-west-2 = "ami-06b94666"
+    eu-west-1 = "ami-0d729a60"
+  }
+}
+
+variable "ec2_instance_type" {
+  type    = list(string)
+  default = ["t3.nano", "t2.micro", "t3.small", "t3.medium", "t3.large", "t3.xlarge", "t3.2xlarge"]
 }
 
 variable "aws_regions" {
