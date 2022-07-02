@@ -19,6 +19,7 @@ resource "aws_s3_bucket" "name" {
   tags = {
     Name = var.awss3_bucket_name
   }
+  /* return id arn bucket_domain */
 }
 /*  upload  */
 /* resource "aws_s3_bucket_object" "name" {
@@ -27,3 +28,7 @@ resource "aws_s3_bucket" "name" {
   source = "abc.png"
   acl = "public-read"
 } */
+
+output "awss3_bucket" {
+  value =  {"s3id": aws_s3_bucket.name.id, "s3arn":aws_s3_bucket.name.arn}
+}
