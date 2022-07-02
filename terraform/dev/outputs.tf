@@ -8,3 +8,7 @@ output "awssubnet_info" {
 /* output "awslb_info" {
   value = module.awslb
 } */
+
+/* output "awsebs_info" {
+  value = module.awsebs.awsext_ebs
+} */

@@ -24,6 +24,7 @@ variable "awssubnet_public" {
       ap-east-1b=string,
     })) */
   type = map(string)
+  /* az name is region - a b c d e */
   default = {
     ap-east-1a = "10.0.1.0/24",
     ap-east-1b = "10.0.2.0/24",
@@ -68,11 +69,13 @@ variable "awss3_acl" {
   default = "private"
 }
 variable "aws_amis" {
-  type = map(any)
+  type = map(string)
+  /* hvm */
   default = {
-    us-east-1 = "ami-13be557e"
-    us-west-2 = "ami-06b94666"
-    eu-west-1 = "ami-0d729a60"
+    "us-east-1" = "ami-13be557e"
+    "us-west-2" = "ami-06b94666"
+    "eu-west-1" = "ami-0d729a60"
+    "ap-east-1" = "ami-0bf6e149a5267c1af"
   }
 }
 
