@@ -32,9 +32,3 @@ resource "aws_lb" "name" {
     Name = var.network_tag
   }
 }
-
-output "awslb" {
-  value =  values(var.aws_subnet_ids_depends_on)
-}
-
-

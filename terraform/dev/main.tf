@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+}
+
 provider "aws" {
   region  = var.aws_regions[10]
   profile = "default"
@@ -17,9 +26,9 @@ module "awsvpc" {
   network_tag       = var.network_tag
 }
 
-module "awssecurity" {
+/* module "awssecurity" {
   source = "../modules/awssecurity"
-}
+} */
 
 /* module "awslb" {
   source = "../modules/awslb"
