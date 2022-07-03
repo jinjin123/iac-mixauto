@@ -6,11 +6,16 @@ terraform {
     }
   }
 }
+variable "is_aws_profile_used" {
+  description = "Indicate if you are using an aws-cli profile or not (for local deployment only, must be equal to false on Jenkins)"
+  type        = bool
+  default     = false
+}
 
 provider "aws" {
   region =  "${var.aws_regions}"[0]
   /* region  = "ap-east-1" */
-  /* profile = "default" */
+  profile = var.is_aws_profile_used ? "default" :  null
 }
 
 
