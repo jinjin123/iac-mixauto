@@ -69,7 +69,7 @@ jobs:
         uses: mshick/add-pr-comment@v1
         with:
           allow-repeats: true
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.PUSH_TOKEN }}
           repo-token-user-login: 'github-actions[bot]'
           message: |
             ## ${{ matrix.path }} plan
