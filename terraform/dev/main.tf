@@ -13,9 +13,10 @@ variable "is_aws_profile_used" {
 }
 
 provider "aws" {
-  region =  "${var.aws_regions}"[0]
+  region = "${var.aws_regions}" [0]
   /* region  = "ap-east-1" */
-  profile = var.is_aws_profile_used ? "default" :  null
+  /* failed to get shared config profile, default */
+  profile = var.is_aws_profile_used ? "default" : null
 }
 
 
