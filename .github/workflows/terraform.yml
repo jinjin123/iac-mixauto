@@ -91,7 +91,7 @@ jobs:
       #       -no-color \
       #       tfplan          
 
-      - name: Post Plan and Apply to GitHub PR
+      # - name: Post Plan and Apply to GitHub PR
       - uses: actions/github-script@0.9.0
         if: github.event_name == 'pull_request'
         env:
