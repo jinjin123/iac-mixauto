@@ -8,8 +8,6 @@ terraform {
 }
 
 provider "aws" {
-  /*  failed to get shared config profile when ci */
-  /* region  = ${var.aws_regions}"[10] */
   region  = "ap-east-1"
   profile = "default"
 }
