@@ -107,6 +107,12 @@ variable "aws_regions" {
     "us-west-2"
   ]
 }
+
+variable "awsiam_lambda_role_name" {
+  type = string
+  default = "lamda_cloud_watch"
+}
+
 /* variable "aws_interfaces" {
   description = <<-EOF
   List of the network interface specifications.

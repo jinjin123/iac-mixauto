@@ -9,7 +9,7 @@ terraform {
 variable "is_aws_profile_used" {
   description = "Indicate if you are using an aws-cli profile or not (for local deployment only, must be equal to false on Jenkins)"
   type        = bool
-  default     = false
+  default     = true
 }
 
 provider "aws" {
@@ -19,7 +19,12 @@ provider "aws" {
   profile = var.is_aws_profile_used ? "default" : null
 }
 
+module "iam_role" {
+  source = "../modules/iam"
+  awsiam_lambda_role_name = var.awsiam_lambda_role_name
+}
 
+/* 
 module "key" {
   source      = "../modules/keypair"
   aws_keyname = var.aws_keyname
@@ -31,7 +36,7 @@ module "awsvpc" {
   awssubnet_public  = var.awssubnet_public
   awssubnet_private = var.awssubnet_private
   network_tag       = var.network_tag
-}
+} */
 
 /* module "awssecurity" {
   source = "../modules/awssecurity"
