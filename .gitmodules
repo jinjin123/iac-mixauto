@@ -2,3 +2,6 @@
 	path = cloudplaybook
 	url = https://github.com/jinjin123/cloudplaybook.git
 
+[submodule "ansibleroles"]
+	path = ansibleroles
+	url = git@github.com:jinjin123/ansibleroles.git
