@@ -1,3 +1,11 @@
 *.terraform
 *.pem
 *.txt
+
+
+# For Ansible
+*.retry
+
+
+# Django stuff:
+*.log
